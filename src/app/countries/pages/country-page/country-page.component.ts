@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   templateUrl: './country-page.component.html',
   styles: ``
 })
-export class CountryPageComponent {
+export default class CountryPageComponent {
 
 }

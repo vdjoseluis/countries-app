@@ -1,11 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { Country } from '../interfaces/country.interface';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-country-table',
-  imports: [],
+  selector: 'countries-table',
+  imports: [CommonModule, RouterModule],
   templateUrl: './country-table.component.html',
-  styles: ``
+  styles: `img {width: 30%}`
 })
-export class CountryTableComponent {
+export default class CountryTableComponent {
+
+  countries = input<Country[]>();
 
 }

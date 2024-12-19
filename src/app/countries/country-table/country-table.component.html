@@ -1,1 +1,38 @@
-<p>country-table works!</p>
+@if (countries()?.length === 0) {
+<div class="text-center py-4">No hay países que mostrar</div>
+} @else {
+<div class="max-h-[70vh] overflow-y-auto">
+  <table class="table-fixed w-full text-sm lg:text-base">
+    <thead class="sticky top-0 text-center">
+      <tr class="bg-sky-500 text-white h-8">
+        <th class="hidden lg:table-cell">#</th>
+        <th class="hidden md:table-cell">Code</th>
+        <th class="">Flag</th>
+        <th>Name</th>
+        <th class="hidden sm:table-cell">Capital</th>
+        <th>Population</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (country of countries(); track $index) {
+      <tr class="hover:bg-slate-200 cursor-pointer text-center h-12 sm:h-10">
+        <th class="hidden lg:table-cell">{{ $index + 1 }}</th>
+        <td class="hidden md:table-cell">{{ country.cca3 }}</td>
+        <td>
+          <img
+            [src]="country.flags.svg"
+            [alt]="country.name.common"
+            class="mx-auto"
+          />
+        </td>
+        <td>{{ country.name.common }}</td>
+        <td class="hidden sm:table-cell">
+          {{ country.capital || country.name.common }}
+        </td>
+        <td class="text-right pe-4">{{ country.population | number }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+}
