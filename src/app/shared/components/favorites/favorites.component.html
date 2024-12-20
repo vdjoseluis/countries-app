@@ -1,51 +1,38 @@
-<div
-  class="bg-slate-300 rounded-2xl shadow-md shadow-sky-500 flex flex-col p-4 mb-4"
->
-  <h1 class="text-2xl font-medium text-sky-600 text-center">
-    Favorite Countries
-  </h1>
-</div>
-<div class="bg-slate-300 rounded-2xl shadow-md shadow-sky-500">
-  <table class="table-fixed w-full text-sm lg:text-base">
-    <thead class="sticky top-0 text-center">
-      <tr class="bg-sky-500 text-white h-8">
-        <th class="hidden lg:table-cell">#</th>
-        <th class="hidden md:table-cell">Code</th>
-        <th class="">Flag</th>
-        <th>Name</th>
-        <th class="hidden sm:table-cell">Capital</th>
-        <th>Population</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="hover:bg-slate-200 cursor-pointer text-center h-12 sm:h-10">
-        <td class="hidden lg:table-cell">1</td>
-        <td class="hidden md:table-cell">ECU</td>
-        <td>
-          <!-- <img
+@if (countries()?.length === 0) {
+  <div class="text-center py-4">No hay países que mostrar</div>
+  } @else {
+  <div class="max-h-[70vh] overflow-y-auto">
+    <table class="table-fixed w-full text-sm lg:text-base">
+      <thead class="sticky top-0 text-center">
+        <tr class="bg-sky-500 text-white h-8">
+          <th class="hidden lg:table-cell">#</th>
+          <th>Name</th>
+          <th class="hidden md:table-cell">Code</th>
+          <th class="">Flag</th>
+          <th class="hidden sm:table-cell">Capital</th>
+          <th>Population</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (country of countries(); track $index) {
+        <tr class="hover:bg-slate-200 cursor-pointer text-center h-12 sm:h-14">
+          <td class="hidden lg:table-cell">{{ $index + 1 }}</td>
+          <td class="text-left ps-4">{{ country.name.common }}</td>
+          <td class="hidden md:table-cell">{{ country.cca3 }}</td>
+          <td>
+            <img
               [src]="country.flags.svg"
               [alt]="country.name.common"
               class="mx-auto"
-            /> -->
-        </td>
-        <td>Ecuador</td>
-        <td class="hidden sm:table-cell">Quito</td>
-        <td class="text-right pe-4">17630000</td>
-      </tr>
-      <tr class="hover:bg-slate-200 cursor-pointer text-center h-12 sm:h-10">
-        <td class="hidden lg:table-cell">2</td>
-        <td class="hidden md:table-cell">ESP</td>
-        <td>
-          <!-- <img
-              [src]="country.flags.svg"
-              [alt]="country.name.common"
-              class="mx-auto"
-            /> -->
-        </td>
-        <td>Spain</td>
-        <td class="hidden sm:table-cell">Madrid</td>
-        <td class="text-right pe-4">27456321</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+            />
+          </td>
+          <td class="hidden sm:table-cell">
+            {{ country.capital || country.name.common }}
+          </td>
+          <td class="text-right pe-4">{{ country.population | number }}</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  }

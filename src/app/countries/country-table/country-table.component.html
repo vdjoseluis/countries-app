@@ -4,19 +4,20 @@
 <div class="max-h-[70vh] overflow-y-auto">
   <table class="table-fixed w-full text-sm lg:text-base">
     <thead class="sticky top-0 text-center">
-      <tr class="bg-sky-500 text-white h-8">
+      <tr class="bg-sky-500 text-white h-8 cursor-none">
         <th class="hidden lg:table-cell">#</th>
+        <th>Name</th>
         <th class="hidden md:table-cell">Code</th>
         <th class="">Flag</th>
-        <th>Name</th>
         <th class="hidden sm:table-cell">Capital</th>
         <th>Population</th>
       </tr>
     </thead>
     <tbody>
-      @for (country of countries(); track $index) {
-      <tr class="hover:bg-slate-200 cursor-pointer text-center h-12 sm:h-10">
-        <th class="hidden lg:table-cell">{{ $index + 1 }}</th>
+      @for (country of countriesSortedByName(); track $index) {
+      <tr class="hover:bg-slate-200 cursor-pointer text-center h-12 sm:h-14" [routerLink]="['/countries/country/', country.cca3]">
+        <td class="hidden lg:table-cell">{{ $index + 1 }}</td>
+        <td class="text-left ps-4">{{ country.name.common }}</td>
         <td class="hidden md:table-cell">{{ country.cca3 }}</td>
         <td>
           <img
@@ -25,7 +26,6 @@
             class="mx-auto"
           />
         </td>
-        <td>{{ country.name.common }}</td>
         <td class="hidden sm:table-cell">
           {{ country.capital || country.name.common }}
         </td>

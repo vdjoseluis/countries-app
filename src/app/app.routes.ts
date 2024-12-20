@@ -38,7 +38,7 @@ export const routes: Routes = [
     ]
   },
   {
-    path: '',
+    path: '**',
     redirectTo: 'countries/home',
     pathMatch: 'full'
   }

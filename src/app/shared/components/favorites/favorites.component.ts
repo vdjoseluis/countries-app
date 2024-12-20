@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
-import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { Component, input } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { Country } from '../../../countries/interfaces/country.interface';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-favorites',
-  imports: [MatTableModule, MatSortModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './favorites.component.html',
 })
 export default class FavoritesComponent {
-
+  countries = input<Country[]>();
 }

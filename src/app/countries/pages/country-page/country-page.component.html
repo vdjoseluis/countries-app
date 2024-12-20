@@ -1,1 +1,52 @@
-<p>country-page works!</p>
+@if (country) {
+<div class="bg-slate-300 rounded-2xl shadow-lg shadow-sky-500">
+  <h1
+    class="text-2xl font-medium text-sky-600 text-center tracking-widest py-4"
+  >
+    ( {{ country.cca3 }} ) - {{ country.name.official
+    }}<!-- <a [href]="country.maps.googleMaps" target="_blank"><mat-icon>pin_drop</mat-icon></a> -->
+  </h1>
+
+  <hr class="border-slate-400 mx-4" />
+
+  <div class="flex justify-around text-center my-4">
+    <div class="flex-col">
+      <h3 class="text-lg py-2">Flag</h3>
+      <img
+        [src]="country.flags.svg"
+        [alt]="country.name.common"
+        class="h-28 sm:h-40"
+      />
+    </div>
+    @if (country.coatOfArms.svg) {
+    <div class="flex-col">
+      <h3 class="text-lg py-2">Coat of Arms</h3>
+      <img
+        [src]="country.coatOfArms.svg"
+        [alt]="country.name.common"
+        class="h-28 sm:h-40"
+      />
+    </div>
+    }
+  </div>
+
+  <div class="flex justify-center py-6">
+    <ul class="sm:text-lg">
+      <li class="py-2"><strong>Capital: </strong>{{ country.capital }}</li>
+      <li class="py-2">
+        <strong>Population: </strong>{{ country.population | number }}
+      </li>
+      <li class="py-2">
+        <strong>Languages: </strong>{{ getFirstLanguage(country) }}
+      </li>
+      <li class="py-2">
+        <strong>Continent: </strong>{{ country.region }} - (
+        {{ country.subregion }} )
+      </li>
+      <li class="py-2">
+        <strong class="pe-2">Location:</strong><a [href]="country.maps.googleMaps" target="_blank" > <mat-icon>pin_drop</mat-icon></a>
+      </li>
+    </ul>
+  </div>
+</div>
+}
