@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, delay, map, Observable, of, tap } from 'rxjs';
 import { Country } from '../interfaces/country.interface';
-import { CacheStore } from '../interfaces/cache-store.interface';
+import { CacheStore, Favourites } from '../interfaces/cache-store.interface';
 import { Region } from '../interfaces/region.type';
 
 @Injectable({ providedIn: 'root' })
@@ -14,19 +14,30 @@ export class CountriesService {
   }
 
   private saveToLocalStorage(): void {
-    localStorage.setItem('cacheStore', JSON.stringify(this.cacheStore))
+    localStorage.setItem('cacheStore', JSON.stringify(this.cacheStore));
+  }
+
+  saveFavourite(country: Country): string {
+    const countryExists = this.favourites.countries.find(favourite => favourite.cca3 === country.cca3);
+    if (countryExists) return 'Country already exists !';
+    this.favourites.countries = [...this.favourites.countries, country];
+    localStorage.setItem('favourites', JSON.stringify(this.favourites));
+    return 'Country added to favourites';
   }
 
   private loadFromLocalStorage(): void {
-    if (!localStorage.getItem('cacheStore')) return;
+    if (!localStorage.getItem('cacheStore') && !localStorage.getItem('favourites')) return;
     this.cacheStore = JSON.parse(localStorage.getItem('cacheStore')!);
+    this.favourites = JSON.parse(localStorage.getItem('favourites')!);
   }
 
   public cacheStore: CacheStore = {
     byCapital: { term: '', countries: [] },
     byCountry: { term: '', countries: [] },
-    byRegion: { region: '', countries: [] }
+    byRegion: { region: '', countries: [] },
   }
+
+  public favourites: Favourites = { countries: [] };
 
   private getCountriesRequest(url: string): Observable<Country[]> {
     return this.http.get<Country[]>(url).pipe(

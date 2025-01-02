@@ -1,40 +1,45 @@
 @if (country) {
 <div class="bg-slate-300 rounded-2xl shadow-lg shadow-sky-500">
   <h1
-    class="text-2xl font-medium text-sky-600 text-center tracking-widest py-4"
+    class="text-sm md:text-2xl font-medium text-sky-600 text-center tracking-widest py-4"
   >
     ( {{ country.cca3 }} ) - {{ country.name.official
-    }}<!-- <a [href]="country.maps.googleMaps" target="_blank"><mat-icon>pin_drop</mat-icon></a> -->
+    }}
   </h1>
 
   <hr class="border-slate-400 mx-4" />
 
   <div class="flex justify-around text-center my-4">
     <div class="flex-col">
-      <h3 class="text-lg py-2">Flag</h3>
+      <h3 class="text-xs md:text-lg py-2">Flag</h3>
       <img
         [src]="country.flags.svg"
         [alt]="country.name.common"
-        class="h-28 sm:h-40"
+        class="h-28 lg:h-40"
       />
     </div>
     @if (country.coatOfArms.svg) {
     <div class="flex-col">
-      <h3 class="text-lg py-2">Coat of Arms</h3>
+      <h3 class="text-xs md:text-lg py-2">Coat of Arms</h3>
+      @if (isImageLoading) {
+      <mat-spinner class="mx-auto"></mat-spinner>
+      }
       <img
         [src]="country.coatOfArms.svg"
         [alt]="country.name.common"
-        class="h-28 sm:h-40"
+        class="h-28 lg:h-40"
+        (load)="onImageLoad()"
+        (error)="onImageError()"
       />
     </div>
     }
   </div>
 
-  <div class="flex justify-center py-6">
-    <ul class="sm:text-lg">
+  <div class="flex justify-center pt-6">
+    <ul class="text-xs sm:text-lg">
       <li class="py-2"><strong>Capital: </strong>{{ country.capital }}</li>
       <li class="py-2">
-        <strong>Population: </strong>{{ country.population | number }}
+        <strong>Population: </strong>{{ country.population | number }} people
       </li>
       <li class="py-2">
         <strong>Languages: </strong>{{ getFirstLanguage(country) }}
@@ -44,9 +49,18 @@
         {{ country.subregion }} )
       </li>
       <li class="py-2">
-        <strong class="pe-2">Location:</strong><a [href]="country.maps.googleMaps" target="_blank" > <mat-icon>pin_drop</mat-icon></a>
+        <strong class="pe-2">Location:</strong
+        ><a [href]="country.maps.googleMaps" target="_blank">
+          <mat-icon>pin_drop</mat-icon></a
+        >
       </li>
     </ul>
   </div>
+  <hr class="border-slate-400 mx-4">
+  <p class="flex items-center p-4 text-xs sm:text-lg cursor-pointer" (click)="addToFavourites(country)">
+    <mat-icon class="text-sky-600">star</mat-icon><span>Add to favourites</span>
+  </p>
 </div>
+} @else {
+<mat-spinner class="mx-auto"></mat-spinner>
 }

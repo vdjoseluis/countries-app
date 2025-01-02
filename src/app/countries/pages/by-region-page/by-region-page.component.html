@@ -4,11 +4,20 @@
   <div class="flex flex-wrap gap-2">
     <h1 class="text-sky-600 pe-2">Select a region:</h1>
     @for (region of regions; track $index) {
-    <button (click)="searchByRegion(region)" class="bg-sky-100 hover:bg-sky-200 text-sky-600 rounded-2xl px-2 py-1 text-xs lg:text-base" [class]="selectedRegion === region ? 'bg-sky-600 text-white' : ''">{{ region }}</button>
+    <button
+      (click)="searchByRegion(region)"
+      class="bg-sky-100 hover:bg-sky-200 text-sky-600 rounded-2xl px-2 py-1 text-xs lg:text-base"
+      [class]="selectedRegion === region ? 'bg-sky-600 text-white' : ''"
+    >
+      {{ region }}
+    </button>
     }
   </div>
 </div>
 
 <div class="bg-slate-300 rounded-2xl shadow-md shadow-sky-500">
+  @if (isLoading) {
+  <mat-spinner class="mx-auto"></mat-spinner>
+  }
   <countries-table [countries]="countries"></countries-table>
 </div>

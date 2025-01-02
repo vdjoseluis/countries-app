@@ -31,9 +31,9 @@ export const routes: Routes = [
         loadComponent: () => import('./shared/components/home/home.component')
       },
       {
-        path: 'favorites',
-        title: 'Favorites',
-        loadComponent: () => import('./shared/components/favorites/favorites.component')
+        path: 'favourites',
+        title: 'favourites',
+        loadComponent: () => import('./shared/components/favourites/favourites.component')
       }
     ]
   },

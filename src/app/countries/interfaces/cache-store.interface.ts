@@ -16,3 +16,7 @@ export interface RegionCountries {
   region: Region;
   countries: Country[]
 }
+
+export interface Favourites {
+  countries: Country[]
+}

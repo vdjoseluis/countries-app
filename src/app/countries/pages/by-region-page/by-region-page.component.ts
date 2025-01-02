@@ -3,15 +3,17 @@ import CountryTableComponent from '../../country-table/country-table.component';
 import { Country } from '../../interfaces/country.interface';
 import { CountriesService } from '../../services/countries.service';
 import { Region } from '../../interfaces/region.type';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-by-region-page',
-  imports: [CountryTableComponent],
+  imports: [CountryTableComponent, MatProgressSpinnerModule],
   templateUrl: './by-region-page.component.html',
 })
 export default class ByRegionPageComponent implements OnInit {
 
   countries: Country[] = [];
+  isLoading: boolean = false;
   regions: Region[] = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
   selectedRegion?: Region;
 
@@ -23,9 +25,11 @@ export default class ByRegionPageComponent implements OnInit {
   }
 
   searchByRegion(region: Region): void {
+    this.isLoading = true;
     this.selectedRegion = region;
     this.countriesService.searchRegion(region).subscribe(countries => {
       this.countries = countries;
+      this.isLoading = false;
     });
   }
 

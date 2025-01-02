@@ -1,0 +1,73 @@
+@if (!countries || countries.length === 0) {
+<div class="text-center py-4">No countries to show</div>
+} @else {
+<div
+  class="bg-slate-300 rounded-2xl shadow-md shadow-sky-500 max-h-[70vh] overflow-y-auto"
+>
+  <h1
+    class="text-sky-600 my-2 text-center text-2xl font-medium tracking-widest"
+  >
+    Favourite Countries
+  </h1>
+  <table class="table-fixed w-full text-sm lg:text-base">
+    <thead class="sticky top-0 text-center">
+      <tr class="bg-sky-500 text-white h-8">
+        <th></th>
+        <th>Name</th>
+        <th class="hidden md:table-cell">Code</th>
+        <th class="">Flag</th>
+        <th class="hidden sm:table-cell">Capital</th>
+        <th>Region</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (country of countries; track $index) {
+      <tr class="hover:bg-slate-200 text-center h-12 sm:h-14">
+        <td>
+          <button
+            (click)="removeFromFavourites(country.cca3)"
+            matTooltip="Remove"
+          >
+            <mat-icon class="text-red-700">delete</mat-icon>
+          </button>
+        </td>
+        <td
+          [routerLink]="['/countries/country/', country.cca3]"
+          class="cursor-pointer"
+        >
+          {{ country.name.common }}
+        </td>
+        <td
+          class="hidden md:table-cell cursor-pointer"
+          [routerLink]="['/countries/country/', country.cca3]"
+        >
+          {{ country.cca3 }}
+        </td>
+        <td
+          [routerLink]="['/countries/country/', country.cca3]"
+          class="cursor-pointer"
+        >
+          <img
+            [src]="country.flags.svg"
+            [alt]="country.name.common"
+            class="mx-auto"
+          />
+        </td>
+        <td
+          class="hidden sm:table-cell cursor-pointer"
+          [routerLink]="['/countries/country/', country.cca3]"
+        >
+          {{ country.capital || country.name.common }}
+        </td>
+        <td
+          [routerLink]="['/countries/country/', country.cca3]"
+          class="cursor-pointer"
+        >
+          {{ country.region }}
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+}

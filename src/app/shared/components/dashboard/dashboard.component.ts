@@ -14,7 +14,7 @@ export default class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.isHomeVisible = event.urlAfterRedirects === '/countries/home' || event.urlAfterRedirects === '/countries/favorites';
+        this.isHomeVisible = event.urlAfterRedirects === '/countries/home' || event.urlAfterRedirects === '/countries/favourites';
       }
     });
   }

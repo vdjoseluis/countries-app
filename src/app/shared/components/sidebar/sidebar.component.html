@@ -29,11 +29,6 @@
     }
   </div>
   @if (!isHomeVisible()) {
-  <button
-    class="bg-sky-500 hover:bg-sky-400 text-white rounded-2xl px-4 my-8 flex justify-center mx-auto"
-    routerLink="/countries/favorites" [routerLink]="['/countries/favorites']"
-  >
-    Favorites
-  </button>
+    <button class="flex mx-auto bg-sky-500 hover:bg-yellow-500 text-white rounded-full p-2 mt-10" [routerLink]="['/countries/favourites']" matTooltip="My favourite countries"><mat-icon>star</mat-icon>Favourites</button>
   }
 </div>
