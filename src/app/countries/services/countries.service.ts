@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, delay, map, Observable, of, tap } from 'rxjs';
+import { catchError, combineLatest, delay, map, Observable, of, tap } from 'rxjs';
 import { Country } from '../interfaces/country.interface';
 import { CacheStore, Favourites } from '../interfaces/cache-store.interface';
 import { Region } from '../interfaces/region.type';
@@ -76,6 +76,28 @@ export class CountriesService {
         tap(countries => this.cacheStore.byRegion = { region, countries }),
         tap(() => this.saveToLocalStorage())
       )
+  }
+
+  getCountryByAlphaCode(alphaCode: string): Observable<Country> {//correcto
+    const url: string = `${this.apiUrl}/alpha/${alphaCode}?fields=cca3,name,borders`;
+
+    return this.http.get<Country>(url)
+      .pipe(
+        map(country => country),
+      )
+  }
+
+  getCountriesBordersByCodes(borders: string[]): Observable<Country[]> {
+    if (!borders || borders.length === 0) return of([]);
+
+    const countriesRequests: Observable<Country>[] = [];
+
+    borders.forEach(code => {
+      const request = this.getCountryByAlphaCode(code);
+      countriesRequests.push(request);
+    });
+
+    return combineLatest(countriesRequests)
   }
 
 }

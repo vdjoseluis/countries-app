@@ -51,9 +51,18 @@
       <li class="py-2">
         <strong class="pe-2">Location:</strong
         ><a [href]="country.maps.googleMaps" target="_blank">
-          <mat-icon>pin_drop</mat-icon></a
+          <mat-icon matTooltip="Open map">pin_drop</mat-icon></a
         >
       </li>
+      @if (borders.length > 0) {
+      <li class="py-2">
+        <strong class="pe-2">Border countries:</strong>
+        @for( border of borders; track $index ) {
+        <a href="/countries/country/{{ border.cca3 }}">{{ border.name.common }}</a>
+        @if ($index < borders.length - 1) {, }
+        }
+      </li>
+      }
     </ul>
   </div>
   <hr class="border-slate-400 mx-4">
